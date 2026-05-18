@@ -1,4 +1,4 @@
 <Solution>
   <Project Path="LostAndFound.Tests/LostAndFound.Tests.csproj" />
-  <Project Path="LostAndFound/LostAndFound.csproj" />
+  <Project Path="LostAndFoundService/LostAndFoundService.csproj" />
 </Solution>

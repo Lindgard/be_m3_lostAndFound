@@ -1,4 +1,4 @@
-namespace LostAndFound;
+namespace LostAndFoundService;
 
 public class LostAndFoundApp
 {

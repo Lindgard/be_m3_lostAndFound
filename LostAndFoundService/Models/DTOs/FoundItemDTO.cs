@@ -1,4 +1,4 @@
-namespace LostAndFound.Models.DTOs;
+namespace LostAndFoundService.Models.DTOs;
 
 public class FoundItemDTO
 {

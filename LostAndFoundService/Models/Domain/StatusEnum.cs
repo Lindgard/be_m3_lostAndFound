@@ -1,4 +1,4 @@
-namespace LostAndFound.Models.Domain;
+namespace LostAndFoundService.Models.Domain;
 
 public enum StatusEnum
 {
