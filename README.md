@@ -1,0 +1,15 @@
+# Lost And Found
+
+Et læringsprosjekt i ASP.NET Core Web API der jeg bygger en testbar hittegodsløsning med TDD, tydelig skille mellom domenelogikk og HTTP-lim, og et eget application service/use-case-lag. API-et dokumenteres med Swagger/OpenAPI, testes med xUnit, og kjøres lokalt sammen med PostgreSQL via Docker Compose for en enkel og konsistent utviklingsflyt.
+
+## Starting TODO
+
+- [ ] Opprett og skriv første domene-tester for `FoundItem` (rød -> grønn -> refaktor).
+- [ ] Implementer grunnleggende domenelogikk for statusflyt: `Available` -> `Claimed` -> `Returned`.
+- [ ] Definer MVP-felter i domenemodellen: `Id`, `Title`, `Description`, `Category`, `FoundLocation`, `FoundAtUtc`, `Status`, `ClaimedBy`, `ClaimedAtUtc`, `ReturnedAtUtc`.
+- [ ] Lag et testbart application service/use-case-lag for opprettelse og statusendringer.
+- [ ] Opprett DTO-er og validering for inn/ut-data i API-et.
+- [ ] Implementer minimale endpoints med riktige statuskoder og feilhåndtering.
+- [ ] Aktiver Swagger/OpenAPI og beskriv endepunktene.
+- [ ] Sett opp `docker-compose` for API + PostgreSQL med miljøvariabler, volume, port-mapping og `depends_on`/healthcheck.
+
