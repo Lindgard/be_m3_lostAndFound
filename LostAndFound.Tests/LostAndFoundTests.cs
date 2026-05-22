@@ -10,7 +10,7 @@ public class LostAndFoundTests
     public void GetAllItems_ReturnsAllItems()
     {
         //* Arrange
-        var service = new LostAndFoundService();
+        var service = new LostAndFoundService.Services.LostAndFoundService();
         var item1 = new FoundItemDTO
         {
             Id = Guid.NewGuid(),
@@ -32,5 +32,8 @@ public class LostAndFoundTests
         service.GetAllItems();
 
         //* Assert
+        var items = service.GetAllItems();
+        Assert.NotNull(items);
+        Assert.Contains(items, i => i.Id == item1.Id && i.Title == item1.Title && i.Status == item1.Status && i.Description == item1.Description && i.FoundLocation == item1.FoundLocation);
     }
 }
