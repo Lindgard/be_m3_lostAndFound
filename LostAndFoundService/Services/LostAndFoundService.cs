@@ -1,4 +1,6 @@
-namespace LostAndFound.Service.Services;
+using LostAndFoundService.Models.DTOs;
+
+namespace LostAndFoundService.Services;
 
 public class LostAndFoundService
 {
@@ -9,9 +11,12 @@ public class LostAndFoundService
     {
     }
 
-    public void GetAllItems()
+    /// <summary>
+    /// Gets all items from the repository.
+    /// </summary>
+    public List<FoundItemDTO> GetAllItems()
     {
-        var repository = new LostAndFoundRepository();
-
+        // This is a placeholder implementation. Replace with actual data retrieval logic.
+        return new List<FoundItemDTO>();
     }
 }
