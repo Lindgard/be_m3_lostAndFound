@@ -36,4 +36,26 @@ public class LostAndFoundTests
         Assert.NotNull(items);
         Assert.Contains(items, i => i.Id == item1.Id && i.Title == item1.Title && i.Status == item1.Status && i.Description == item1.Description && i.FoundLocation == item1.FoundLocation);
     }
+
+    [Fact]
+    public void AddItem_AddsNewItem()
+    {
+        //* Arrange
+        var service = new LostAndFoundService.Services.LostAndFoundService();
+        var newItem = new FoundItemDTO
+        {
+            Id = Guid.NewGuid(),
+            Title = "Backpack",
+            Status = StatusEnum.Available,
+            Description = "Blue backpack found in the gym.",
+            FoundLocation = "Gym"
+        };
+
+        //* Act
+        service.AddItem(newItem);
+
+        //* Assert
+        var items = service.GetAllItems();
+        Assert.Contains(items, i => i.Id == newItem.Id && i.Title == newItem.Title);
+    }
 }
