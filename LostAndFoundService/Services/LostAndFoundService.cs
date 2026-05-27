@@ -22,6 +22,10 @@ public class LostAndFoundService
     /// <returns>A list of all found items.</returns>
     public List<FoundItemDTO> GetAllItems()
     {
+        if (_items.Count == 0)
+        {
+            throw new InvalidOperationException("No items found in the repository.");
+        }
         return _items;
     }
 
