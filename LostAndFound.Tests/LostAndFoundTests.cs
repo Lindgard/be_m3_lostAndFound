@@ -19,6 +19,7 @@ public class LostAndFoundTests
             Description = "Black leather wallet found in classroom 101.",
             FoundLocation = "Classroom 101"
         };
+
         var item2 = new FoundItemDTO
         {
             Id = Guid.NewGuid(),
@@ -28,6 +29,9 @@ public class LostAndFoundTests
             FoundLocation = "School Library"
         };
 
+        service.AddItem(item1);
+        service.AddItem(item2);
+
         //* Act
         service.GetAllItems();
 
@@ -35,6 +39,7 @@ public class LostAndFoundTests
         var items = service.GetAllItems();
         Assert.NotNull(items);
         Assert.Contains(items, i => i.Id == item1.Id && i.Title == item1.Title && i.Status == item1.Status && i.Description == item1.Description && i.FoundLocation == item1.FoundLocation);
+        Assert.Contains(items, i => i.Id == item2.Id && i.Title == item2.Title && i.Status == item2.Status && i.Description == item2.Description && i.FoundLocation == item2.FoundLocation);
     }
 
     [Fact]
@@ -56,6 +61,7 @@ public class LostAndFoundTests
 
         //* Assert
         var items = service.GetAllItems();
-        Assert.Contains(items, i => i.Id == newItem.Id && i.Title == newItem.Title);
+        Assert.Contains(items, i =>
+            i.Id == newItem.Id && i.Title == newItem.Title && i.Status == newItem.Status && i.Description == newItem.Description && i.FoundLocation == newItem.FoundLocation);
     }
 }
