@@ -1,6 +1,7 @@
-using LostAndFoundService.Models.DTOs;
+using LostAndFound.Domain.Models.DTOs;
+using LostAndFound.Domain.Models.Domain;
 
-namespace LostAndFoundService.Services;
+namespace LostAndFound.Domain.Services;
 
 public class LostAndFoundService
 {
@@ -34,4 +35,18 @@ public class LostAndFoundService
         _items.Add(item);
     }
 
+    /// <summary>
+    /// Updates the status of an item based on its ID.
+    /// </summary>
+    /// <param name="id">The ID of the item to update.</param>
+    /// <param name="newStatus">The new status to set.</param>
+    /// <returns>True if the item was found and updated; otherwise, false.</returns>
+    public bool UpdateItemStatus(Guid id, StatusEnum newStatus)
+    {
+        var item = _items.FirstOrDefault(i => i.Id == id);
+        if (item is null) return false;
+
+        item.Status = newStatus;
+        return true;
+    }
 }

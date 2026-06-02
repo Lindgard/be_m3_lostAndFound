@@ -1,6 +1,6 @@
-using LostAndFoundService.Models.Domain;
+using LostAndFound.Domain.Models.Domain;
 
-namespace LostAndFoundService.Models.DTOs;
+namespace LostAndFound.Domain.Models.DTOs;
 
 public class FoundItemDTO
 {

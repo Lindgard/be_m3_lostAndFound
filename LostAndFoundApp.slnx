@@ -1,5 +1,5 @@
 <Solution>
   <Project Path="LostAndFound.Api/LostAndFound.Api.csproj" />
+  <Project Path="LostAndFound.Domain/LostAndFoundService.csproj" />
   <Project Path="LostAndFound.Tests/LostAndFound.Tests.csproj" />
-  <Project Path="LostAndFoundService/LostAndFoundService.csproj" />
 </Solution>
