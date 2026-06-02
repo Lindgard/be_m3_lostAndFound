@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LostAndFoundService\LostAndFoundService.csproj" />
+    <ProjectReference Include="..\LostAndFound.Domain\LostAndFoundService.csproj" />
   </ItemGroup>
 
 </Project>

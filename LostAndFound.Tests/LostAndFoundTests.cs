@@ -1,6 +1,6 @@
-﻿using LostAndFoundService.Services;
-using LostAndFoundService.Models.DTOs;
-using LostAndFoundService.Models.Domain;
+﻿using LostAndFound.Domain.Services;
+using LostAndFound.Domain.Models.DTOs;
+using LostAndFound.Domain.Models.Domain;
 
 namespace LostAndFound.Tests;
 
@@ -10,7 +10,7 @@ public class LostAndFoundTests
     public void GetAllItems_ReturnsAllItems()
     {
         //* Arrange
-        var service = new LostAndFoundService.Services.LostAndFoundService();
+        var service = new LostAndFound.Domain.Services.LostAndFoundService();
         var item1 = new FoundItemDTO
         {
             Id = Guid.NewGuid(),
@@ -46,7 +46,7 @@ public class LostAndFoundTests
     public void AddItem_AddsNewItem()
     {
         //* Arrange
-        var service = new LostAndFoundService.Services.LostAndFoundService();
+        var service = new LostAndFound.Domain.Services.LostAndFoundService();
         var newItem = new FoundItemDTO
         {
             Id = Guid.NewGuid(),
@@ -63,5 +63,46 @@ public class LostAndFoundTests
         var items = service.GetAllItems();
         Assert.Contains(items, i =>
             i.Id == newItem.Id && i.Title == newItem.Title && i.Status == newItem.Status && i.Description == newItem.Description && i.FoundLocation == newItem.FoundLocation);
+    }
+
+    [Theory]
+    [InlineData(StatusEnum.Available)]
+    [InlineData(StatusEnum.Claimed)]
+    [InlineData(StatusEnum.Returned)]
+    public void UpdateItemStatus_WhenItemExists_ChangesStatus(StatusEnum newStatus)
+    {
+        //* Arrange
+        var service = new LostAndFound.Domain.Services.LostAndFoundService();
+        var item = new FoundItemDTO
+        {
+            Id = Guid.NewGuid(),
+            Title = "Sunglasses",
+            Status = StatusEnum.Available,
+            Description = "Ray-Ban sunglasses found in the cafeteria.",
+            FoundLocation = "Cafeteria"
+        };
+
+        service.AddItem(item);
+
+        //* Act
+        var updatedItem = service.UpdateItemStatus(item.Id, newStatus);
+
+        //* Assert
+        Assert.True(updatedItem);
+        var storedItem = service.GetAllItems().Single(i => i.Id == item.Id);
+        Assert.Equal(newStatus, storedItem.Status);
+    }
+
+    [Fact]
+    public void UpdateItemStatus_WhenItemDoesNotExist_ReturnsFalse()
+    {
+        //* Arrange
+        var service = new LostAndFound.Domain.Services.LostAndFoundService();
+
+        //* Act
+        var updated = service.UpdateItemStatus(Guid.NewGuid(), StatusEnum.Claimed);
+
+        //* Assert
+        Assert.False(updated);
     }
 }
