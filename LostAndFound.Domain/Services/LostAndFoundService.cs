@@ -1,7 +1,7 @@
-using LostAndFound.Domain.Models.DTOs;
-using LostAndFound.Domain.Models.Domain;
+using LostAndFoundDomain.Models.DTOs;
+using LostAndFoundDomain.Models.Domain;
 
-namespace LostAndFound.Domain.Services;
+namespace LostAndFoundDomain.Services;
 
 public class LostAndFoundService
 {
@@ -44,7 +44,10 @@ public class LostAndFoundService
     public bool UpdateItemStatus(Guid id, StatusEnum newStatus)
     {
         var item = _items.FirstOrDefault(i => i.Id == id);
-        if (item is null) return false;
+        if (item is null)
+        {
+            return false;
+        }
 
         item.Status = newStatus;
         return true;

@@ -12,3 +12,7 @@ Et læringsprosjekt i ASP.NET Core Web API der jeg bygger en testbar hittegodsl�
 - [ ] Implementer minimale endpoints med riktige statuskoder og feilhåndtering.
 - [ ] Aktiver Swagger/OpenAPI og beskriv endepunktene.
 - [ ] Sett opp `docker-compose` for API + PostgreSQL med miljøvariabler, volume, port-mapping og `depends_on`/healthcheck.
+
+## Notes
+
+- Remember to run dotnet clean before testing to avoid caching issues
