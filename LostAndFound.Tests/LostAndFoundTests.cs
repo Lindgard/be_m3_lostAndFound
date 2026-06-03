@@ -104,4 +104,30 @@ public class LostAndFoundTests
         //* Assert
         Assert.False(updated);
     }
+
+    [Fact]
+    public void CreateItem_SetsDefaultStatusAndTimestamp()
+    {
+        //* Arrange
+        var service = new LostAndFoundDomain.Services.LostAndFoundService();
+        var before = DateTime.UtcNow;
+
+        var dto = new FoundItemDTO
+        {
+            Id = Guid.NewGuid(),
+            Title = "Keys",
+            Description = "Set of car keys found in parking lot",
+            FoundLocation = "Parking Lot"
+        };
+
+        service.AddItem(dto);
+
+        //* Act
+        var saved = service.GetAllItems().Single(i => i.Id == dto.Id);
+
+        //* Assert
+        Assert.Equal(StatusEnum.Available, saved.Status);
+
+        Assert.InRange(saved.DateFound, before.AddSeconds(-1), DateTime.UtcNow.AddSeconds(1));
+    }
 }

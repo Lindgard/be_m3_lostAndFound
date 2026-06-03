@@ -8,6 +8,7 @@ public class FoundItem
     public string Category { get; set; } = string.Empty;
     public DateTime DateFound { get; set; }
     public string FoundLocation { get; set; } = string.Empty;
+    public DateTime DateReported { get; set; }
     public StatusEnum Status { get; set; }
     public string ClaimedBy { get; set; } = string.Empty;
     public DateTime? DateClaimedAt { get; set; }
