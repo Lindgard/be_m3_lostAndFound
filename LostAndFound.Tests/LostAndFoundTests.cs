@@ -1,7 +1,6 @@
-﻿using LostAndFound.Domain.Services;
-using LostAndFound.Domain.Models.DTOs;
-using LostAndFound.Domain.Models.Domain;
-
+﻿using LostAndFoundDomain.Services;
+using LostAndFoundDomain.Models.DTOs;
+using LostAndFoundDomain.Models.Domain;
 namespace LostAndFound.Tests;
 
 public class LostAndFoundTests
@@ -10,7 +9,7 @@ public class LostAndFoundTests
     public void GetAllItems_ReturnsAllItems()
     {
         //* Arrange
-        var service = new LostAndFound.Domain.Services.LostAndFoundService();
+        var service = new LostAndFoundDomain.Services.LostAndFoundService();
         var item1 = new FoundItemDTO
         {
             Id = Guid.NewGuid(),
@@ -46,7 +45,7 @@ public class LostAndFoundTests
     public void AddItem_AddsNewItem()
     {
         //* Arrange
-        var service = new LostAndFound.Domain.Services.LostAndFoundService();
+        var service = new LostAndFoundDomain.Services.LostAndFoundService();
         var newItem = new FoundItemDTO
         {
             Id = Guid.NewGuid(),
@@ -72,7 +71,7 @@ public class LostAndFoundTests
     public void UpdateItemStatus_WhenItemExists_ChangesStatus(StatusEnum newStatus)
     {
         //* Arrange
-        var service = new LostAndFound.Domain.Services.LostAndFoundService();
+        var service = new LostAndFoundDomain.Services.LostAndFoundService();
         var item = new FoundItemDTO
         {
             Id = Guid.NewGuid(),
@@ -97,7 +96,7 @@ public class LostAndFoundTests
     public void UpdateItemStatus_WhenItemDoesNotExist_ReturnsFalse()
     {
         //* Arrange
-        var service = new LostAndFound.Domain.Services.LostAndFoundService();
+        var service = new LostAndFoundDomain.Services.LostAndFoundService();
 
         //* Act
         var updated = service.UpdateItemStatus(Guid.NewGuid(), StatusEnum.Claimed);
