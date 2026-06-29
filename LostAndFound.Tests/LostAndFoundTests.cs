@@ -10,20 +10,16 @@ public class LostAndFoundTests
     {
         //* Arrange
         var service = new LostAndFoundDomain.Services.LostAndFoundService();
-        var item1 = new FoundItemDTO
+        var item1 = new CreateFoundItemDTO
         {
-            Id = Guid.NewGuid(),
             Title = "Wallet",
-            Status = StatusEnum.Available,
             Description = "Black leather wallet found in classroom 101.",
             FoundLocation = "Classroom 101"
         };
 
-        var item2 = new FoundItemDTO
+        var item2 = new CreateFoundItemDTO
         {
-            Id = Guid.NewGuid(),
             Title = "Phone",
-            Status = StatusEnum.Available,
             Description = "iPhone found in the school library.",
             FoundLocation = "School Library"
         };
@@ -32,13 +28,12 @@ public class LostAndFoundTests
         service.AddItem(item2);
 
         //* Act
-        service.GetAllItems();
+        var items = service.GetAllItems();
 
         //* Assert
-        var items = service.GetAllItems();
         Assert.NotNull(items);
-        Assert.Contains(items, i => i.Id == item1.Id && i.Title == item1.Title && i.Status == item1.Status && i.Description == item1.Description && i.FoundLocation == item1.FoundLocation);
-        Assert.Contains(items, i => i.Id == item2.Id && i.Title == item2.Title && i.Status == item2.Status && i.Description == item2.Description && i.FoundLocation == item2.FoundLocation);
+        Assert.Contains(items, i => i.Title == item1.Title && i.Description == item1.Description && i.FoundLocation == item1.FoundLocation);
+        Assert.Contains(items, i => i.Title == item2.Title && i.Description == item2.Description && i.FoundLocation == item2.FoundLocation);
     }
 
     [Fact]
@@ -46,11 +41,9 @@ public class LostAndFoundTests
     {
         //* Arrange
         var service = new LostAndFoundDomain.Services.LostAndFoundService();
-        var newItem = new FoundItemDTO
+        var newItem = new CreateFoundItemDTO
         {
-            Id = Guid.NewGuid(),
             Title = "Backpack",
-            Status = StatusEnum.Available,
             Description = "Blue backpack found in the gym.",
             FoundLocation = "Gym"
         };
@@ -61,7 +54,7 @@ public class LostAndFoundTests
         //* Assert
         var items = service.GetAllItems();
         Assert.Contains(items, i =>
-            i.Id == newItem.Id && i.Title == newItem.Title && i.Status == newItem.Status && i.Description == newItem.Description && i.FoundLocation == newItem.FoundLocation);
+            i.Title == newItem.Title && i.Description == newItem.Description && i.FoundLocation == newItem.FoundLocation);
     }
 
     [Theory]
@@ -72,11 +65,9 @@ public class LostAndFoundTests
     {
         //* Arrange
         var service = new LostAndFoundDomain.Services.LostAndFoundService();
-        var item = new FoundItemDTO
+        var item = new CreateFoundItemDTO
         {
-            Id = Guid.NewGuid(),
             Title = "Sunglasses",
-            Status = StatusEnum.Available,
             Description = "Ray-Ban sunglasses found in the cafeteria.",
             FoundLocation = "Cafeteria"
         };
@@ -88,8 +79,7 @@ public class LostAndFoundTests
 
         //* Assert
         Assert.True(updatedItem);
-        var storedItem = service.GetAllItems().Single(i => i.Id == item.Id);
-        Assert.Equal(newStatus, storedItem.Status);
+        Assert.Equal(newStatus, service.GetAllItems().Single(i => i.Id == item.Id).Status);
     }
 
     [Fact]
@@ -112,9 +102,8 @@ public class LostAndFoundTests
         var service = new LostAndFoundDomain.Services.LostAndFoundService();
         var before = DateTime.UtcNow;
 
-        var dto = new FoundItemDTO
+        var dto = new CreateFoundItemDTO
         {
-            Id = Guid.NewGuid(),
             Title = "Keys",
             Description = "Set of car keys found in parking lot",
             FoundLocation = "Parking Lot"
@@ -123,7 +112,7 @@ public class LostAndFoundTests
         service.AddItem(dto);
 
         //* Act
-        var saved = service.GetAllItems().Single(i => i.Id == dto.Id);
+        var saved = service.AddItem(dto);
 
         //* Assert
         Assert.Equal(StatusEnum.Available, saved.Status);
@@ -135,11 +124,9 @@ public class LostAndFoundTests
     {
         //* Arrange
         var service = new LostAndFoundDomain.Services.LostAndFoundService();
-        var item = new FoundItemDTO
+        var item = new CreateFoundItemDTO
         {
-            Id = Guid.NewGuid(),
             Title = "Watch",
-            Status = StatusEnum.Available,
             FoundLocation = "Locker Room",
             Description = "Silver wristwatch found in locker room"
         };
