@@ -127,7 +127,31 @@ public class LostAndFoundTests
 
         //* Assert
         Assert.Equal(StatusEnum.Available, saved.Status);
+        Assert.True(saved.DateFound >= before && saved.DateFound <= DateTime.UtcNow);
+    }
 
-        Assert.InRange(saved.DateFound, before.AddSeconds(-1), DateTime.UtcNow.AddSeconds(1));
+    [Fact]
+    public void ClaimItem_WorksOnlyFromAvailableStatus()
+    {
+        //* Arrange
+        var service = new LostAndFoundDomain.Services.LostAndFoundService();
+        var item = new FoundItemDTO
+        {
+            Id = Guid.NewGuid(),
+            Title = "Watch",
+            Status = StatusEnum.Available,
+            FoundLocation = "Locker Room",
+            Description = "Silver wristwatch found in locker room"
+        };
+        service.AddItem(item);
+
+        //* Act
+        var firstClaim = service.ClaimItem(item.Id);
+        var secondClaim = service.ClaimItem(item.Id);
+
+        //* Assert
+        Assert.True(firstClaim);
+        Assert.False(secondClaim);
+        Assert.Equal(StatusEnum.Claimed, service.GetAllItems().Single(i => i.Id == item.Id).Status);
     }
 }

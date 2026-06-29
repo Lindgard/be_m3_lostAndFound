@@ -52,4 +52,23 @@ public class LostAndFoundService
         item.Status = newStatus;
         return true;
     }
+
+    public void CreateItem(FoundItemDTO item)
+    {
+        item.Status = StatusEnum.Available;
+        item.DateFound = DateTime.UtcNow;
+        _items.Add(item);
+    }
+    public bool ClaimItem(Guid id)
+    {
+        var item = _items.FirstOrDefault(i => i.Id == id);
+        if (item is null || item.Status != StatusEnum.Available)
+        {
+            return false;
+        }
+
+        item.Status = StatusEnum.Claimed;
+        return true;
+
+    }
 }
