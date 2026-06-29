@@ -4,11 +4,11 @@ Et læringsprosjekt i ASP.NET Core Web API der jeg bygger en testbar hittegodsl�
 
 ## Starting TODO
 
-- [ ] Opprett og skriv første domene-tester for `FoundItem` (rød -> grønn -> refaktor).
-- [ ] Implementer grunnleggende domenelogikk for statusflyt: `Available` -> `Claimed` -> `Returned`.
-- [x] Definer MVP-felter i domenemodellen: `Id`, `Title`, `Description`, `Category`, `FoundLocation`, `FoundAtUtc`, `Status`, `ClaimedBy`, `ClaimedAtUtc`, `ReturnedAtUtc`.
-- [ ] Lag et testbart application service/use-case-lag for opprettelse og statusendringer.
-- [ ] Opprett DTO-er og validering for inn/ut-data i API-et.
+- [x] Opprett og skriv første domene-tester for `FoundItem` (rød -> grønn -> refaktor).
+- [x] Implementer grunnleggende domenelogikk for statusflyt: `Available` -> `Claimed` -> `Returned`.
+- [x] Definer MVP-felter i domenemodellen: `Id`, `Title`, `Description`, `Category`, `FoundLocation`, `DateFound`, `Status`, `ClaimedBy`, `DateClaimedAt`, `DateReturnedAt`.
+- [x] Lag et testbart application service/use-case-lag for opprettelse og statusendringer.
+- [x] Opprett DTO-er og validering for inn/ut-data i API-et.
 - [ ] Implementer minimale endpoints med riktige statuskoder og feilhåndtering.
 - [ ] Aktiver Swagger/OpenAPI og beskriv endepunktene.
 - [ ] Sett opp `docker-compose` for API + PostgreSQL med miljøvariabler, volume, port-mapping og `depends_on`/healthcheck.
