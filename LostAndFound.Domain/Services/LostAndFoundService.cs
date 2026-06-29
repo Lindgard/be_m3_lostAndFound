@@ -8,7 +8,7 @@ public class LostAndFoundService
     /// <summary>
     /// In-memory list to store found items. This would be replaced with a database or other persistent storage.
     /// </summary>
-    private readonly List<FoundItemDTO> _items = new List<FoundItemDTO>();
+    private readonly List<FoundItem> _items = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LostAndFoundService"/> class.
@@ -21,20 +21,26 @@ public class LostAndFoundService
     /// Gets all items from the repository.
     /// </summary>
     /// <returns>A list of all found items.</returns>
-    public List<FoundItemDTO> GetAllItems()
-    {
-        return _items;
-    }
+    public IEnumerable<FoundItemResponseDTO> GetAllItems() => _items.Select(MapToResponse);
 
     /// <summary>
     /// Adds a new item to the repository.
     /// </summary>
     /// <param name="item">The item to add.</param>
-    public void AddItem(FoundItemDTO item)
+    public FoundItemResponseDTO AddItem(CreateFoundItemDTO item)
     {
-        item.Status = StatusEnum.Available;
-        item.DateFound = DateTime.UtcNow;
-        _items.Add(item);
+        var newItem = new FoundItem
+        {
+            Id = Guid.NewGuid(),
+            Title = item.Title,
+            Description = item.Description,
+            FoundLocation = item.FoundLocation,
+            Category = item.Category,
+            DateFound = DateTime.UtcNow,
+            Status = StatusEnum.Available
+        };
+        _items.Add(newItem);
+        return MapToResponse(newItem);
     }
 
     /// <summary>
@@ -59,11 +65,19 @@ public class LostAndFoundService
     /// Creates a new found item and adds it to the repository. The item's status is set to "Available" and the date found is set to the current UTC time.
     /// </summary>
     /// <param name="item">The item to create.</param>
-    public void CreateItem(FoundItemDTO item)
+    public void CreateItem(CreateFoundItemDTO item)
     {
-        item.Status = StatusEnum.Available;
-        item.DateFound = DateTime.UtcNow;
-        _items.Add(item);
+        var newItem = new FoundItem
+        {
+            Id = Guid.NewGuid(),
+            Title = item.Title,
+            Description = item.Description,
+            FoundLocation = item.FoundLocation,
+            Category = item.Category,
+            DateFound = DateTime.UtcNow,
+            Status = StatusEnum.Available
+        };
+        _items.Add(newItem);
     }
 
     /// <summary>
@@ -81,6 +95,19 @@ public class LostAndFoundService
 
         item.Status = StatusEnum.Claimed;
         return true;
-
     }
+
+    private static FoundItemResponseDTO MapToResponse(FoundItem item) => new FoundItemResponseDTO
+    {
+        Id = item.Id,
+        Title = item.Title,
+        Description = item.Description,
+        FoundLocation = item.FoundLocation,
+        Category = item.Category,
+        DateFound = item.DateFound,
+        Status = item.Status,
+        ClaimedBy = item.ClaimedBy,
+        DateClaimedAt = item.DateClaimedAt,
+        DateReturnedAt = item.DateReturnedAt
+    };
 }

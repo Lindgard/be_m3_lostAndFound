@@ -65,14 +65,12 @@ public class LostAndFoundTests
     {
         //* Arrange
         var service = new LostAndFoundDomain.Services.LostAndFoundService();
-        var item = new CreateFoundItemDTO
+        var item = service.AddItem(new CreateFoundItemDTO
         {
             Title = "Sunglasses",
             Description = "Ray-Ban sunglasses found in the cafeteria.",
             FoundLocation = "Cafeteria"
-        };
-
-        service.AddItem(item);
+        });
 
         //* Act
         var updatedItem = service.UpdateItemStatus(item.Id, newStatus);
@@ -124,13 +122,12 @@ public class LostAndFoundTests
     {
         //* Arrange
         var service = new LostAndFoundDomain.Services.LostAndFoundService();
-        var item = new CreateFoundItemDTO
+        var item = service.AddItem(new CreateFoundItemDTO
         {
             Title = "Watch",
             FoundLocation = "Locker Room",
             Description = "Silver wristwatch found in locker room"
-        };
-        service.AddItem(item);
+        });
 
         //* Act
         var firstClaim = service.ClaimItem(item.Id);
