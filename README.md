@@ -9,8 +9,8 @@ Et læringsprosjekt i ASP.NET Core Web API der jeg bygger en testbar hittegodsl�
 - [x] Definer MVP-felter i domenemodellen: `Id`, `Title`, `Description`, `Category`, `FoundLocation`, `DateFound`, `Status`, `ClaimedBy`, `DateClaimedAt`, `DateReturnedAt`.
 - [x] Lag et testbart application service/use-case-lag for opprettelse og statusendringer.
 - [x] Opprett DTO-er og validering for inn/ut-data i API-et.
-- [ ] Implementer minimale endpoints med riktige statuskoder og feilhåndtering.
-- [ ] Aktiver Swagger/OpenAPI og beskriv endepunktene.
+- [x] Implementer minimale endpoints med riktige statuskoder og feilhåndtering.
+- [x] Aktiver Swagger/OpenAPI og beskriv endepunktene.
 - [ ] Sett opp `docker-compose` for API + PostgreSQL med miljøvariabler, volume, port-mapping og `depends_on`/healthcheck.
 
 ## Notes
