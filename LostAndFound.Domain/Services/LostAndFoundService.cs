@@ -97,6 +97,23 @@ public class LostAndFoundService
         return true;
     }
 
+    public IEnumerable<FoundItemResponseDTO> GetItems(StatusEnum? status = null, string? category = null)
+    {
+        var query = _items.AsEnumerable();
+
+        if (status.HasValue)
+        {
+            query = query.Where(i => i.Status == status.Value);
+        }
+
+        if (!string.IsNullOrWhiteSpace(category))
+        {
+            query = query.Where(i => i.Category.Equals(category, StringComparison.OrdinalIgnoreCase));
+        }
+
+        return query.Select(MapToResponse);
+    }
+
     private static FoundItemResponseDTO MapToResponse(FoundItem item) => new FoundItemResponseDTO
     {
         Id = item.Id,
