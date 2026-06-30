@@ -17,7 +17,7 @@ public class LostAndFoundController : ControllerBase
         _service = service;
     }
 
-    //* GET: /LostAndFound
+    //* GET: /LostandFound
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<FoundItemResponseDTO>), StatusCodes.Status200OK)]
     public ActionResult<ApiResponse<IEnumerable<FoundItemResponseDTO>>> GetAllItems()
@@ -77,5 +77,22 @@ public class LostAndFoundController : ControllerBase
         }
 
         return Ok(new ApiResponse<object>(null, "Item claimed successfully.", StatusCodes.Status200OK));
+    }
+
+    [HttpGet("items")]
+    [ProducesResponseType(typeof(IEnumerable<FoundItemResponseDTO>), StatusCodes.Status200OK)]
+    public ActionResult<ApiResponse<IEnumerable<FoundItemResponseDTO>>> GetItems([FromQuery] StatusEnum? status = null, [FromQuery] string? category = null)
+    {
+        var items = _service.GetItems(status, category);
+
+        var message = (status, category) switch
+        {
+            (not null, not null) => $"Items with status '{status}' and category '{category}' retrieved successfully.",
+            (not null, null) => $"Items with status '{status}' retrieved successfully.",
+            (null, not null) => $"Items with category '{category}' retrieved successfully.",
+            _ => "All items retrieved successfully."
+        };
+
+        return Ok(new ApiResponse<IEnumerable<FoundItemResponseDTO>>(items, message, StatusCodes.Status200OK));
     }
 }
